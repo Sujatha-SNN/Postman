@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "5beb4679-bd9e-4105-92c2-e985f4b9a63b",
+		"name": "JIRA - Aug2-8-2020Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all Issues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-may2020.atlassian.net/rest/api/2/search?jql-project=\"RA\"",
+					"protocol": "https",
+					"host": [
+						"api-may2020",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql-project",
+							"value": "\"RA\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create JIRA Issue with body",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "hari.radhakrishnan@testleaf.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "60beSkCr05XHzsMLUfVYD8A7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n       \r\n        \"summary\": \"Updation using REST API for testing\"\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://api-may2020.atlassian.net/rest/api/2/issue/RA-1196",
+					"protocol": "https",
+					"host": [
+						"api-may2020",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"RA-1196"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "hari.radhakrishnan@testleaf.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "60beSkCr05XHzsMLUfVYD8A7",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a3eb49e2-3a97-40d1-addc-76d7b9d2e157",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6893bdc0-1c28-475b-a869-a7ab1dd5e1d7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

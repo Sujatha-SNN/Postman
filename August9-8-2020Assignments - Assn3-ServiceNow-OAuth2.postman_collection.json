@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "d44f373d-100e-4d40-bf1c-d337fbcf44f1",
+		"name": "August9-8-2020Assignments - Assn3-ServiceNow-OAuth2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Service NOw -Assign3 -Aug9-8-2020",
+			"item": [
+				{
+					"name": "Create Multiple Change Requests - Data File",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60daba08-50f5-4403-8ea4-3a91c3c513b1",
+								"exec": [
+									"//Assertion for ststus code\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Assertion for response time\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var state_global = pm.globals.get(\"state\");\r",
+									"\r",
+									"console.log(state_global);\r",
+									"var short_desc_global = pm.globals.get(\"short_description\");\r",
+									"console.log(short_desc_global);\r",
+									"//assertion to check value from data file\r",
+									"\r",
+									"pm.test(\"Test state\", function () {\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var stateinresp = jsonData.result.state;\r",
+									"    pm.expect(parseInt(stateinresp)).to.eql(parseInt(state_global));\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test short description\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.short_description).to.eql(short_desc_global);\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1a621967-6f58-4424-b630-1da9e8d4d148",
+								"exec": [
+									"var state=data[\"state\"];\r",
+									"var short_desc=data[\"short-desc\"];\r",
+									"console.log(\"Inside Pre-request - start\");\r",
+									"console.log(state);\r",
+									"pm.globals.set(\"state\", state);\r",
+									"\r",
+									"\r",
+									"\r",
+									"console.log(short_desc);\r",
+									"console.log(\"Inside Pre-request - end\");\r",
+									"pm.globals.set(\"short_description\", short_desc);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"state\" : \"{{state}}\",\r\n   \"short_description\": \"{{short-desc}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{server}}api/now/table/{{changerequest}}",
+							"host": [
+								"{{server}}api"
+							],
+							"path": [
+								"now",
+								"table",
+								"{{changerequest}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "Ny8zXvwDBR584GDG7W4_qrSJJJ82MQG7dHFZ74qfqHxnlyJ7uvKBQfjCqQKcLNPPXJvovfAgV0uuyIHsMVy5sw",
+						"type": "string"
+					},
+					{
+						"key": "tokenType",
+						"value": "Bearer",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c65542fe-d744-4f32-b9eb-4f7853613e3e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c877116e-c60e-4466-ab05-80e2a078c0a1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "Ny8zXvwDBR584GDG7W4_qrSJJJ82MQG7dHFZ74qfqHxnlyJ7uvKBQfjCqQKcLNPPXJvovfAgV0uuyIHsMVy5sw",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "089a2771-24f9-4d72-926d-62c67a5beaf6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6683c464-2ee9-4a3d-9121-ea5727514c20",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f4fb4d49-8bcf-4093-a0c6-584b8474c6ab",
+			"key": "changerequest",
+			"value": "change_request"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

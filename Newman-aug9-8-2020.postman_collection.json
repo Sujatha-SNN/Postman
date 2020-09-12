@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "42af4cc0-87a7-4d29-bc81-c4fbaf93e5c6",
+		"name": "Newman-aug9-8-2020",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ServiceNow Chaining incident - data file Copy",
+			"item": [
+				{
+					"name": "Get all incidents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da55ce96-aec9-424f-b4ee-5f81b2453e93",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"short_description\": \"second\",\r\n    \"state\": \"{{state}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{server}}api/now/table/{{table}}",
+							"host": [
+								"{{server}}api"
+							],
+							"path": [
+								"now",
+								"table",
+								"{{table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,short_description,sys_id,category",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an incident Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a5c1cfdb-946e-4b1f-b6d0-5c367c3b4087",
+								"exec": [
+									"//step 1 - get the response from the json\r",
+									"var resp = pm.response.json();\r",
+									"//step 2 - get the sys-id from response\r",
+									"var id =resp.result.sys_id;\r",
+									"console.log(resp);\r",
+									"console.log(id);\r",
+									"//step 3 - assign the sys_id to global variable\r",
+									"//first parameter is global varaiable name \r",
+									"//second param is value\r",
+									"pm.globals.set(\"global_sys_id\",id);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"short_description\":\"{{short_desc}}\",\r\n    \"state\": \"{{state}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{server}}api/now/table/{{table}}?sysparm_fields=number,short_description,sys_id,category",
+							"host": [
+								"{{server}}api"
+							],
+							"path": [
+								"now",
+								"table",
+								"{{table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,short_description,sys_id,category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5be34a76-1070-43aa-85b4-87f319fc90f6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/api/now/table/{{table}}/{{global_sys_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"{{table}}",
+								"{{global_sys_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66f5720a-3dce-4514-8ea5-a07657288939",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/api/now/table/{{table}}/{{global_sys_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"{{table}}",
+								"{{global_sys_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0440e74b-d98a-4d53-b5ea-7d7a010b9654",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "60af0526-eaf1-44c5-bd4b-2e809990e801",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "Ask#0106",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5de2dd90-0973-4fc1-878a-959dd8f0477c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7caa17c3-a2fc-4755-9645-36a30846ca39",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "99733373-84e3-4f60-9f9c-6861cdaf0cba",
+			"key": "table",
+			"value": "incident"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

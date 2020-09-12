@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "d1f1d67e-d0d9-44dc-b4de-c487afa25b12",
+		"name": "August9-8-2020Assignments JIRA -Assn2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JIRA -Assign3 -Aug9-8-2020 Assign2",
+			"item": [
+				{
+					"name": "update the same issue using chaining with assertion to check the response time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66929668-52fc-40cf-871c-1c969d07ccc5",
+								"exec": [
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "33486aed-aa62-4c69-aeeb-877f7d4c7770",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "n2d8Dvu5XKpiV9fLPdI1D685",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "hari.radhakrishnan@testleaf.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n       \r\n        \"description\": \"Update on august 17-8-2020 Using REST API for testing\"\r\n    }\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://api-may2020.atlassian.net/rest/api/2/issue/11388",
+							"protocol": "https",
+							"host": [
+								"api-may2020",
+								"atlassian",
+								"net"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"11388"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create JIRA Issue with body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "427ec8d6-7200-4d27-9f23-7593e3a95dea",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"var id = jsonData.id;\r",
+									"\r",
+									"pm.globals.set(\"id\", id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "hari.radhakrishnan@testleaf.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "60beSkCr05XHzsMLUfVYD8A7",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"RA\"\r\n        },\r\n        \"summary\": \"create issue in RA project by SSN -aug 9-8-2020\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Story\"\r\n        }\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{JIRA}}rest/api/2/issue/",
+							"host": [
+								"{{JIRA}}rest"
+							],
+							"path": [
+								"api",
+								"2",
+								"issue",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0946548c-9668-4f87-a5ab-4830897caee9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "64fdac4a-1c60-4a99-8a25-0de98b17ec4e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "60beSkCr05XHzsMLUfVYD8A7",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "hari.radhakrishnan@testleaf.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a67c1e99-ad55-4955-8dc6-69e1bd8c7c80",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ef424570-9ff7-4355-b807-bd120ec0be9c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
